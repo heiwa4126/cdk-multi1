@@ -8,8 +8,23 @@ export class User2Stack extends cdk.Stack {
 	constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
 		super(scope, id, props);
 
+		// コンテキストからパラメータを取得
+		const bucketName = this.node.tryGetContext("bucketName");
+		if (!bucketName) {
+			throw new Error("'bucketName' is not defined in the context");
+		}
+		const user2Account = this.node.tryGetContext("user2Account");
+		if (!user2Account) {
+			throw new Error("'user2Account' is not defined in the context");
+		}
+		const user2IAMRole = this.node.tryGetContext("user2IAMRole");
+		if (!user2IAMRole) {
+			throw new Error("'user2IAMRole' is not defined in the context");
+		}
+
 		// Lambda用IAMロールを作成
 		const lambdaRole = new Role(this, "LambdaExecutionRole", {
+			roleName: user2IAMRole,
 			assumedBy: new ServicePrincipal("lambda.amazonaws.com"),
 		});
 
@@ -17,17 +32,20 @@ export class User2Stack extends cdk.Stack {
 		lambdaRole.addToPolicy(
 			new PolicyStatement({
 				actions: ["s3:PutObject"],
-				resources: ["arn:aws:s3:::user1-bucket/*"], // ユーザー1のS3バケットARNを指定
+				resources: [`arn:aws:s3:::${bucketName}/*`], // ユーザー1のS3バケットARNを指定
 			}),
 		);
 
 		const testFunction = new NodejsFunction(this, "testFuction", {
-			entry: "lambda/hello/app.ts",
+			entry: "lambda/writeS3/app.ts",
 			runtime: lambda.Runtime.NODEJS_20_X, // Provide any supported Node.js runtime
 			handler: "lambdaHandler",
 			role: lambdaRole,
+			bundling: {
+				minify: false, // デバッグ用
+			},
 			environment: {
-				MyBucketName: myBucket.bucketName,
+				MyBucketName: bucketName,
 				MyBucketRegion: this.region,
 			},
 		});

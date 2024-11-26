@@ -1,17 +1,9 @@
 #!/usr/bin/env node
 import * as cdk from "aws-cdk-lib";
-import { CdkMulti1Stack } from "../lib/cdk-multi1-stack";
+import { User1Stack } from "../lib/user1-stack";
+import { User2Stack } from "../lib/user2-stack";
 
 const app = new cdk.App();
-new CdkMulti1Stack(app, "CdkMulti1Stack", {
-	/* If you don't specify 'env', this stack will be environment-agnostic.
-	 * Account/Region-dependent features and context lookups will not work,
-	 * but a single synthesized template can be deployed anywhere. */
-	/* Uncomment the next line to specialize this stack for the AWS Account
-	 * and Region that are implied by the current CLI configuration. */
-	// env: { account: process.env.CDK_DEFAULT_ACCOUNT, region: process.env.CDK_DEFAULT_REGION },
-	/* Uncomment the next line if you know exactly what Account and Region you
-	 * want to deploy the stack to. */
-	// env: { account: '123456789012', region: 'us-east-1' },
-	/* For more information, see https://docs.aws.amazon.com/cdk/latest/guide/environments.html */
-});
+
+new User1Stack(app, "User1Stack", { env: { account: "erai", region: "ap-northeast-1" } });
+new User2Stack(app, "User2Stack", { env: { account: "erai3", region: "ap-northeast-1" } });
