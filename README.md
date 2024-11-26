@@ -1,4 +1,11 @@
-# Welcome to your CDK TypeScript project
+# cdk-multi1
+
+AWS CDKでマルチアカウントリソースをつくる。
+
+## 内容
+- まず User2で User1側の
+
+
 
 This is a blank project for CDK development with TypeScript.
 

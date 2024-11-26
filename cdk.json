@@ -73,7 +73,7 @@
 		"@aws-cdk/aws-lambda-nodejs:sdkV3ExcludeSmithyPackages": true,
 		"@aws-cdk/aws-stepfunctions-tasks:fixRunEcsTaskPolicy": true,
 		"bucketName": "user1backet-shlyowm9",
-		"user2Account": "123456789012",
+		"user2Account": "904233115557",
 		"user2IAMRole": "User2Roleshlyowm9"
 	}
 }
