@@ -1,5 +1,6 @@
 import * as cdk from "aws-cdk-lib";
-import { PolicyStatement, Role, ServicePrincipal } from "aws-cdk-lib/aws-iam";
+import * as iam from "aws-cdk-lib/aws-iam";
+import { Role } from "aws-cdk-lib/aws-iam";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as logs from "aws-cdk-lib/aws-logs";
@@ -22,19 +23,24 @@ export class User2Stack extends cdk.Stack {
 			throw new Error("'user2IAMRole' is not defined in the context");
 		}
 
-		// Lambda用IAMロールを作成
+		// Lambda用IAMロールを作成。User1Stackよりも先に作成する必要がある
 		const lambdaRole = new Role(this, "LambdaExecutionRole", {
 			roleName: user2IAMRole,
-			assumedBy: new ServicePrincipal("lambda.amazonaws.com"),
+			assumedBy: new iam.ServicePrincipal("lambda.amazonaws.com"),
+			managedPolicies: [
+				iam.ManagedPolicy.fromAwsManagedPolicyName("service-role/AWSLambdaBasicExecutionRole"),
+			],
+			inlinePolicies: {
+				MyBucketWriteAccess: new iam.PolicyDocument({
+					statements: [
+						new iam.PolicyStatement({
+							actions: ["s3:PutObject"],
+							resources: [`arn:aws:s3:::${bucketName}/*`], // ユーザー1のS3バケットARNを指定,
+						}),
+					],
+				}),
+			},
 		});
-
-		// S3への書き込み権限をロールに付与
-		lambdaRole.addToPolicy(
-			new PolicyStatement({
-				actions: ["s3:PutObject"],
-				resources: [`arn:aws:s3:::${bucketName}/*`], // ユーザー1のS3バケットARNを指定
-			}),
-		);
 
 		const testFunction = new NodejsFunction(this, "testFuction", {
 			entry: "lambda/writeS3/app.ts",
@@ -42,7 +48,7 @@ export class User2Stack extends cdk.Stack {
 			handler: "lambdaHandler",
 			role: lambdaRole,
 			bundling: {
-				minify: false, // デバッグ用
+				minify: true,
 			},
 			environment: {
 				MyBucketName: bucketName,
