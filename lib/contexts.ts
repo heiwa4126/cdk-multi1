@@ -77,9 +77,20 @@ const validate = ajv.compile(schema);
 
 //#endregion
 
+/**
+ * Reads and parses a JSONC file containing parameters, validates the parameters,
+ * and returns them if they are valid.
+ *
+ * @param {string} [parameterJsonFile="./parameters.jsonc"] - The path to the JSONC file containing parameters.
+ * @returns {object} The parsed and validated parameters.
+ * @throws {Error} If the parameters are invalid.
+ */
 export function getParameters(parameterJsonFile = "./parameters.jsonc") {
 	// コメントが使える & 親切なエラーメッセージが出るように JSONCにしました
 	const parameters = parse(fs.readFileSync(parameterJsonFile, "utf-8"));
+
+	// 以下やりすぎかもしれないので、バリデーション部分は削除して
+	// return parameters; ぐらいにしてもいいです。必要に応じて調整してください
 
 	const isValid = validate(parameters);
 	if (!isValid) {

@@ -1,0 +1,8 @@
+{
+	// Bucket name for user1
+	"bucketName": "user1backet-zzzzzzzz",
+	// Account number for user2 (in string format)
+	"user2Account": "999999999999",
+	// IAM role name for user2
+	"user2IAMRole": "User2Roleszzzzzzzz"
+}
