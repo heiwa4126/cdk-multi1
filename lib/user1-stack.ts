@@ -1,13 +1,13 @@
 import * as cdk from "aws-cdk-lib";
 import { ArnPrincipal, Effect, PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { Bucket } from "aws-cdk-lib/aws-s3";
-import { getContexts } from "./contexts";
+import { getParameters } from "./contexts";
 export class User1Stack extends cdk.Stack {
 	constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
 		super(scope, id, props);
 
 		// コンテキストからパラメータを取得
-		const { bucketName, user2Account, user2IAMRole } = getContexts(this);
+		const { bucketName, user2Account, user2IAMRole } = getParameters();
 
 		// S3バケットを作成
 		const bucket = new Bucket(this, "User1Bucket", {

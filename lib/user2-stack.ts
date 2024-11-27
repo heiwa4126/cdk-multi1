@@ -4,14 +4,14 @@ import { Role } from "aws-cdk-lib/aws-iam";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import { NodejsFunction } from "aws-cdk-lib/aws-lambda-nodejs";
 import * as logs from "aws-cdk-lib/aws-logs";
-import { getContexts } from "./contexts";
+import { getParameters } from "./contexts";
 
 export class User2Stack extends cdk.Stack {
 	constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
 		super(scope, id, props);
 
 		// コンテキストからパラメータを取得
-		const { bucketName, user2Account, user2IAMRole } = getContexts(this);
+		const { bucketName, user2IAMRole } = getParameters();
 
 		// Lambda用IAMロールを作成。User1Stackよりも先に作成する必要がある
 		const testFunctionRole = new Role(this, "testFuctionRole", {
