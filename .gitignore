@@ -16,4 +16,4 @@ layers/
 *.tgz
 
 .env
-parameters.json
+parameters.jsonc
