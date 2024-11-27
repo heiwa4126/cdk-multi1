@@ -1,23 +1,13 @@
 import * as cdk from "aws-cdk-lib";
 import { ArnPrincipal, Effect, PolicyStatement } from "aws-cdk-lib/aws-iam";
 import { Bucket } from "aws-cdk-lib/aws-s3";
+import { getContexts } from "./contexts";
 export class User1Stack extends cdk.Stack {
 	constructor(scope: cdk.App, id: string, props?: cdk.StackProps) {
 		super(scope, id, props);
 
 		// コンテキストからパラメータを取得
-		const bucketName = this.node.tryGetContext("bucketName");
-		if (!bucketName) {
-			throw new Error("'bucketName' is not defined in the context");
-		}
-		const user2Account = this.node.tryGetContext("user2Account");
-		if (!user2Account) {
-			throw new Error("'user2Account' is not defined in the context");
-		}
-		const user2IAMRole = this.node.tryGetContext("user2IAMRole");
-		if (!user2IAMRole) {
-			throw new Error("'user2IAMRole' is not defined in the context");
-		}
+		const { bucketName, user2Account, user2IAMRole } = getContexts(this);
 
 		// S3バケットを作成
 		const bucket = new Bucket(this, "User1Bucket", {
@@ -29,6 +19,7 @@ export class User1Stack extends cdk.Stack {
 		});
 
 		// バケットポリシーを追加
+		// user2Stackの 論理ID testFuctionRole が存在しないと、スタック生成時にタイムアウトする
 		bucket.addToResourcePolicy(
 			new PolicyStatement({
 				effect: Effect.ALLOW,
