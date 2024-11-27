@@ -50,7 +50,9 @@ pnpm run destroy
 
 ## メモ
 
-`user2Account`は明らかに2度手間(user2のプロファイルから取れる)ので、なんとかならないか考える。
-あとaws-cnだと死ぬはず。`arn:aws:iam::${user2Account}:role/${user2IAMRole}`で作ってるから。
+`user2Account`は明らかに 2 度手間(user2 のプロファイルから取れる)ので、なんとかならないか考える。
+あと aws-cn だと死ぬはず。`arn:aws:iam::${user2Account}:role/${user2IAMRole}`で作ってるから。
 
 マルチアカウントのスタックはやっぱり難しい。
+
+TODO: run-scripts の bootstrap が user1 と user2 でやらないとダメ。あとで直す。
