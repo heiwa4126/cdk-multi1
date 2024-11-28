@@ -56,3 +56,5 @@ pnpm run destroy
 マルチアカウントのスタックはやっぱり難しい。
 
 TODO: run-scripts の bootstrap が user1 と user2 でやらないとダメ。あとで直す。
+
+TODO: スタックの名前を変えられるようにする。.envで書けばたぶんできる。
