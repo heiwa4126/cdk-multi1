@@ -17,6 +17,7 @@ user2 の lambda(今回は Function URLs)から書き込む。
 
 `.env.template` を `.env` にコピーして、
 user1 と user2 のプロファイル名を設定してください。
+リソースはプロファイルのデフォルトリージョンに作成されます
 
 同様に
 `./parameters.template.jsonc` を `parameters.jsonc` にコピーして
@@ -26,10 +27,15 @@ user1 と user2 のプロファイル名を設定してください。
 
 ※ pnpm を使う例です。npm は遅いので、pnpm か Bun がおすすめ
 
-```sh
+````sh
+# 準備
 pnpm i
+pnpm run bootstrap # まだ1度もCDKを使っていないアカウント&リージョンではこれを実行。複数回実行しても問題ない
+
+```sh
+# 配布
 pnpm run deploy
-```
+````
 
 実行と確認は (jq と curl を使っています)
 
@@ -49,6 +55,8 @@ pnpm run destroy
 ```
 
 ## メモ
+
+マルチアカウントリソースだと、スタック間のデータの受け渡しがかなり難しい。
 
 `user2Account`は明らかに 2 度手間(user2 のプロファイルから取れる)ので、なんとかならないか考える。
 あと aws-cn だと死ぬはず。`arn:aws:iam::${user2Account}:role/${user2IAMRole}`で作ってるから。

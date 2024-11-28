@@ -5,5 +5,9 @@ import { User2Stack } from "../lib/user2-stack";
 
 const app = new cdk.App();
 
-new User2Stack(app, "User2Stack");
-new User1Stack(app, "User1Stack");
+const stack1 = new User1Stack(app, "User1Stack");
+const stack2 = new User2Stack(app, "User2Stack");
+
+// stack1がstack2に依存することを明示 (stack2, stack1の順でしか作れない)
+// ただしマルチアカウントではあんまり意味がない。どうせ--allで作れないから
+stack1.addDependency(stack2);
