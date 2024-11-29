@@ -23,7 +23,9 @@ export class User1Stack extends cdk.Stack {
 		bucket.addToResourcePolicy(
 			new PolicyStatement({
 				effect: Effect.ALLOW,
-				principals: [new ArnPrincipal(`arn:aws:iam::${user2Account}:role/${user2IAMRole}`)],
+				principals: [
+					new ArnPrincipal(`arn:${cdk.Aws.PARTITION}:iam::${user2Account}:role/${user2IAMRole}`),
+				],
 				actions: ["s3:PutObject"],
 				resources: [`${bucket.bucketArn}/*`],
 			}),

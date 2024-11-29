@@ -25,7 +25,7 @@ export class User2Stack extends cdk.Stack {
 					statements: [
 						new iam.PolicyStatement({
 							actions: ["s3:PutObject"],
-							resources: [`arn:aws:s3:::${bucketName}/*`], // ユーザー1のS3バケットARNを指定,
+							resources: [`arn:${cdk.Aws.PARTITION}:s3:::${bucketName}/*`], // ユーザー1のS3バケットARNを指定,
 						}),
 					],
 				}),

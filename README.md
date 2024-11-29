@@ -57,12 +57,14 @@ pnpm run destroy
 ## メモ
 
 マルチアカウントリソースだと、スタック間のデータの受け渡しがかなり難しい。
+またスタックの実行順は手動で制御しないといけない。
 
 `user2Account`は明らかに 2 度手間(user2 のプロファイルから取れる)ので、なんとかならないか考える。
 あと aws-cn だと死ぬはず。`arn:aws:iam::${user2Account}:role/${user2IAMRole}`で作ってるから。
+→ `arn:${cdk.Aws.PARTITION}:...` にした。
 
 マルチアカウントのスタックはやっぱり難しい。
 
 TODO: run-scripts の bootstrap が user1 と user2 でやらないとダメ。あとで直す。
 
-TODO: スタックの名前を変えられるようにする。.envで書けばたぶんできる。
+TODO: スタックの名前を変えられるようにする。.env で書けばたぶんできる。
