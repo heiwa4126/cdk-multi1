@@ -27,8 +27,8 @@
 	"devDependencies": {
 		"@types/aws-lambda": "^8.10.160",
 		"@types/jest": "^30.0.0",
-		"@types/node": "25.2.3",
-		"aws-cdk": "2.1106.0",
+		"@types/node": "25.3.0",
+		"aws-cdk": "2.1106.1",
 		"esbuild": "^0.27.3",
 		"jest": "^30.2.0",
 		"npm-run-all2": "^8.0.4",
@@ -38,9 +38,9 @@
 		"typescript": "~5.9.3"
 	},
 	"dependencies": {
-		"@aws-sdk/client-s3": "^3.992.0",
-		"@aws-sdk/client-sts": "^3.992.0",
-		"@aws-sdk/credential-providers": "^3.992.0",
+		"@aws-sdk/client-s3": "^3.993.0",
+		"@aws-sdk/client-sts": "^3.993.0",
+		"@aws-sdk/credential-providers": "^3.993.0",
 		"ajv": "^8.18.0",
 		"aws-cdk-lib": "2.238.0",
 		"constructs": "^10.5.0",
