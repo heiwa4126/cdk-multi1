@@ -18,7 +18,7 @@ ajv.addKeyword({
 		if (typeof data !== "string") return false;
 
 		const isValidLength = data.length >= 3 && data.length <= 63;
-		const isValidChars = /^[a-z0-9\-]+$/.test(data);
+		const isValidChars = /^[a-z0-9-]+$/.test(data);
 		const startsAndEndsWithAlphaNum = /^[a-z0-9].*[a-z0-9]$/.test(data);
 		const noConsecutiveHyphens = !data.includes("--");
 		const isNotIPAddress = !/^\d+\.\d+\.\d+\.\d+$/.test(data);
@@ -51,7 +51,7 @@ ajv.addKeyword({
 	keyword: "isIAMRoleName",
 	type: "string",
 	validate: (schema: boolean, data: unknown): boolean => {
-		return typeof data === "string" && /^[\w\-]{1,64}$/.test(data);
+		return typeof data === "string" && /^[\w-]{1,64}$/.test(data);
 	},
 	errors: false,
 });
