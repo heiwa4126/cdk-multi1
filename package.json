@@ -38,12 +38,12 @@
 		"typescript": "~5.9.3"
 	},
 	"dependencies": {
-		"@aws-sdk/client-s3": "^3.993.0",
-		"@aws-sdk/client-sts": "^3.993.0",
-		"@aws-sdk/credential-providers": "^3.993.0",
+		"@aws-sdk/client-s3": "^3.994.0",
+		"@aws-sdk/client-sts": "^3.994.0",
+		"@aws-sdk/credential-providers": "^3.994.0",
 		"ajv": "^8.18.0",
-		"aws-cdk-lib": "2.238.0",
-		"constructs": "^10.5.0",
+		"aws-cdk-lib": "2.239.0",
+		"constructs": "^10.5.1",
 		"date-fns": "^4.1.0",
 		"jsonc-parser": "^3.3.1"
 	}
