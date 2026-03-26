@@ -20,7 +20,7 @@ export const lambdaHandler = async (
 		Body: body,
 	};
 
-	let response: object;
+	let response: APIGatewayProxyResult;
 
 	try {
 		const command = new PutObjectCommand(params);
