@@ -3,8 +3,8 @@ import type { APIGatewayProxyEvent, APIGatewayProxyResult, Context } from "aws-l
 import { format } from "date-fns";
 
 export const lambdaHandler = async (
-	event: APIGatewayProxyEvent,
-	context: Context,
+	_event: APIGatewayProxyEvent,
+	_context: Context,
 ): Promise<APIGatewayProxyResult> => {
 	const bucketName = process.env.MyBucketName;
 
