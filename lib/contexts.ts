@@ -31,7 +31,7 @@ ajv.addKeyword({
 			isNotIPAddress
 		);
 	},
-	errors: false,
+	errors: false
 });
 
 // AWSアカウント番号のカスタムバリデーション
@@ -42,7 +42,7 @@ ajv.addKeyword({
 	validate: (schema: boolean, data: unknown): boolean => {
 		return typeof data === "string" && /^[0-9]{12}$/.test(data);
 	},
-	errors: false,
+	errors: false
 });
 
 // IAMロール名のカスタムバリデーション
@@ -53,7 +53,7 @@ ajv.addKeyword({
 	validate: (schema: boolean, data: unknown): boolean => {
 		return typeof data === "string" && /^[\w-]{1,64}$/.test(data);
 	},
-	errors: false,
+	errors: false
 });
 
 // スキーマ定義
@@ -66,10 +66,10 @@ const schema: JSONSchemaType<{
 	properties: {
 		bucketName: { type: "string", isS3BucketName: true },
 		user2Account: { type: "string", isAWSAccountNumber: true },
-		user2IAMRole: { type: "string", isIAMRoleName: true },
+		user2IAMRole: { type: "string", isIAMRoleName: true }
 	},
 	required: ["bucketName", "user2Account", "user2IAMRole"],
-	additionalProperties: false,
+	additionalProperties: false
 };
 
 // バリデーション関数

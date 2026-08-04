@@ -14,54 +14,54 @@ export class User2Stack extends cdk.Stack {
 		const { bucketName, user2IAMRole } = getParameters();
 
 		// Lambda用IAMロールを作成。User1Stackよりも先に作成する必要がある
-		const testFunctionRole = new Role(this, "testFuctionRole", {
+		const testFunctionRole = new Role(this, "testFunctionRole", {
 			roleName: user2IAMRole,
 			assumedBy: new iam.ServicePrincipal("lambda.amazonaws.com"),
 			managedPolicies: [
-				iam.ManagedPolicy.fromAwsManagedPolicyName("service-role/AWSLambdaBasicExecutionRole"),
+				iam.ManagedPolicy.fromAwsManagedPolicyName("service-role/AWSLambdaBasicExecutionRole")
 			],
 			inlinePolicies: {
 				MyBucketWriteAccess: new iam.PolicyDocument({
 					statements: [
 						new iam.PolicyStatement({
 							actions: ["s3:PutObject"],
-							resources: [`arn:${cdk.Aws.PARTITION}:s3:::${bucketName}/*`], // ユーザー1のS3バケットARNを指定,
-						}),
-					],
-				}),
-			},
+							resources: [`arn:${cdk.Aws.PARTITION}:s3:::${bucketName}/*`] // ユーザー1のS3バケットARNを指定,
+						})
+					]
+				})
+			}
 		});
-		new cdk.CfnOutput(this, "testFuctionRoleArn", {
+		new cdk.CfnOutput(this, "testFunctionRoleArn", {
 			value: testFunctionRole.roleArn,
-			description: "Just for debug",
+			description: "Just for debug"
 		});
 
-		const testFunction = new NodejsFunction(this, "testFuction", {
+		const testFunction = new NodejsFunction(this, "testFunction", {
 			entry: "lambda/writeS3/app.ts",
-			runtime: lambda.Runtime.NODEJS_20_X, // Provide any supported Node.js runtime
+			runtime: lambda.Runtime.NODEJS_24_X, // Provide any supported Node.js runtime
 			handler: "lambdaHandler",
 			role: testFunctionRole,
 			bundling: {
-				minify: true,
+				minify: true
 			},
 			environment: {
 				MyBucketName: bucketName,
-				MyBucketRegion: this.region,
-			},
+				MyBucketRegion: this.region
+			}
 		});
 		// Create a CloudWatch Logs Log Group for myFunction
-		new logs.LogGroup(this, "testFuctionLogGroup", {
+		new logs.LogGroup(this, "testFunctionLogGroup", {
 			logGroupName: `/aws/lambda/${testFunction.functionName}`,
 			retention: logs.RetentionDays.ONE_WEEK,
-			removalPolicy: cdk.RemovalPolicy.DESTROY,
+			removalPolicy: cdk.RemovalPolicy.DESTROY
 		});
 
 		// とりあえずLambda Function URLsで
 		const testFunctionUrl = testFunction.addFunctionUrl({
-			authType: lambda.FunctionUrlAuthType.NONE,
+			authType: lambda.FunctionUrlAuthType.NONE
 		});
 		new cdk.CfnOutput(this, "testFunctionUrl", {
-			value: testFunctionUrl.url,
+			value: testFunctionUrl.url
 		});
 	}
 }

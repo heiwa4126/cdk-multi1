@@ -2,7 +2,7 @@ import { GetCallerIdentityCommand, STSClient } from "@aws-sdk/client-sts"; // ST
 import { fromIni } from "@aws-sdk/credential-providers"; // プロファイルクレデンシャル
 
 export async function getCredentials(
-	profile: string,
+	profile: string
 ): Promise<{ account: string; region: string }> {
 	// プロファイルの認証情報を取得
 	const credentials = fromIni({ profile });
@@ -23,6 +23,6 @@ export async function getCredentials(
 
 	return {
 		account: response.Account,
-		region,
+		region
 	};
 }

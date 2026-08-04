@@ -4,7 +4,7 @@ import { format } from "date-fns";
 
 export const lambdaHandler = async (
 	_event: APIGatewayProxyEvent,
-	_context: Context,
+	_context: Context
 ): Promise<APIGatewayProxyResult> => {
 	const bucketName = process.env.MyBucketName;
 
@@ -17,7 +17,7 @@ export const lambdaHandler = async (
 	const params = {
 		Bucket: bucketName,
 		Key: key,
-		Body: body,
+		Body: body
 	};
 
 	let response: APIGatewayProxyResult;
@@ -29,16 +29,16 @@ export const lambdaHandler = async (
 			statusCode: 200,
 			body: JSON.stringify({
 				message: "Object created successfully",
-				response: res,
-			}),
+				response: res
+			})
 		};
 	} catch (error) {
 		response = {
 			statusCode: 400,
 			body: JSON.stringify({
 				message: "Error creating object:",
-				error,
-			}),
+				error
+			})
 		};
 	}
 

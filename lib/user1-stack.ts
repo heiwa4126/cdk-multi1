@@ -15,28 +15,28 @@ export class User1Stack extends cdk.Stack {
 			publicReadAccess: false,
 			//--- 以下デバッグ用設定
 			removalPolicy: cdk.RemovalPolicy.DESTROY,
-			autoDeleteObjects: true, // バケット削除時に中身も削除するlambdaとroleが自動で作成される
+			autoDeleteObjects: true // バケット削除時に中身も削除するlambdaとroleが自動で作成される
 		});
 
 		// バケットポリシーを追加
-		// user2Stackの 論理ID testFuctionRole が存在しないと、スタック生成時にタイムアウトする
+		// user2Stackの 論理ID testFunctionRole が存在しないと、スタック生成時にタイムアウトする
 		bucket.addToResourcePolicy(
 			new PolicyStatement({
 				effect: Effect.ALLOW,
 				principals: [
-					new ArnPrincipal(`arn:${cdk.Aws.PARTITION}:iam::${user2Account}:role/${user2IAMRole}`),
+					new ArnPrincipal(`arn:${cdk.Aws.PARTITION}:iam::${user2Account}:role/${user2IAMRole}`)
 				],
 				actions: ["s3:PutObject"],
-				resources: [`${bucket.bucketArn}/*`],
-			}),
+				resources: [`${bucket.bucketArn}/*`]
+			})
 		);
 		new cdk.CfnOutput(this, "BucketName", {
 			value: bucket.bucketName,
-			description: "This is the name of the bucket. ${bucket.bucketName} == ${backetName}",
+			description: "This is the name of the bucket. ${bucket.bucketName} == ${backetName}"
 		});
 		new cdk.CfnOutput(this, "BucketArn", {
 			value: bucket.bucketArn,
-			description: "Just for debug",
+			description: "Just for debug"
 		});
 	}
 }
