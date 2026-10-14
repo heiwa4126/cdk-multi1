@@ -15,12 +15,12 @@ user2 の lambda(今回は Function URLs)から書き込む。
 
 ## 固有の設定
 
-`.env.template` を `.env` にコピーして、
+`.env.template`を`.env`にコピーして、
 user1 と user2 のプロファイル名を設定してください。
 リソースはプロファイルのデフォルトリージョンに作成されます
 
 同様に
-`./parameters.template.jsonc` を `parameters.jsonc` にコピーして
+`./parameters.template.jsonc`を`parameters.jsonc`にコピーして
 コメントに従って値を設定してください。
 
 ## デプロイ
@@ -61,7 +61,7 @@ pnpm run destroy
 
 `user2Account`は明らかに 2 度手間(user2 のプロファイルから取れる)ので、なんとかならないか考える。
 あと aws-cn だと死ぬはず。`arn:aws:iam::${user2Account}:role/${user2IAMRole}`で作ってるから。
-→ `arn:${cdk.Aws.PARTITION}:...` にした。
+→ `arn:${cdk.Aws.PARTITION}:...`にした。
 
 マルチアカウントのスタックはやっぱり難しい。
 
