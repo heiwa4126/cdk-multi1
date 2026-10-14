@@ -10,6 +10,6 @@ const stack1 = new User1Stack(app, "User1Stack", { stackName: `${projectName}-Us
 const stack2 = new User2Stack(app, "User2Stack", { stackName: `${projectName}-User2Stack` });
 
 // stack1がstack2に依存することを明示 (stack2, stack1の順でしか作れない)
-stack1.addDependency(stack2);
+stack1.addStackDependency(stack2);
 // ただしマルチアカウントではあんまり意味がない。
 // どうせ `cdk deploy --all` で作れないから
